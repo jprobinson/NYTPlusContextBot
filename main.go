@@ -15,6 +15,8 @@ import (
 
 var credsFile = flag.String("creds", "/opt/nyt/etc/creds.json", "path to creds.json file")
 
+const NYTMinusContextID = "2189503302"
+
 func main() {
 	flag.Parse()
 
@@ -37,7 +39,7 @@ func main() {
 	api := anaconda.NewTwitterApi(creds.TwtAccess, creds.TwtAccessSecret)
 	stream := api.PublicStreamFilter(url.Values{
 		// @NYTMinusContext's ID
-		"follow": []string{"2189503302"},
+		"follow": []string{NYTMinusContextID},
 	})
 
 	go func() {
@@ -52,6 +54,11 @@ func main() {
 		tweet, ok := res.(anaconda.Tweet)
 		if !ok {
 			log.Printf("encountered a non-tweet: %#v", res)
+			continue
+		}
+
+		if tweet.User.IdStr != NYTMinusContextID {
+			log.Print("ignoring non-NYTMinusContext tweet from "+tweet.User.ScreenName, ": "+tweet.Text)
 			continue
 		}
 
