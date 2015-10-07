@@ -1,0 +1,3 @@
+check process bot with pidfile /var/run/bot.pid
+      start program = "/etc/init.d/bot start"
+      stop program = "/etc/init.d/bot stop"
