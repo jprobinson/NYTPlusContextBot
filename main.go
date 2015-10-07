@@ -10,7 +10,7 @@ import (
 	"syscall"
 
 	"github.com/ChimeraCoder/anaconda"
-	"github.com/jprobinson/nyt-plus-context/pluscontextbot"
+	"github.com/jprobinson/NYTPlusContextBot/pluscontextbot"
 )
 
 var credsFile = flag.String("creds", "/opt/nyt/etc/creds.json", "path to creds.json file")
