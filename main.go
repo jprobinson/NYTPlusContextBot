@@ -50,6 +50,8 @@ func main() {
 		stream.End()
 	}()
 
+	log.Print("listening for tweets")
+
 	for res := range stream.C {
 		tweet, ok := res.(anaconda.Tweet)
 		if !ok {
@@ -73,7 +75,7 @@ func main() {
 		log.Printf("found the article: %#v", article)
 
 		var msg string
-		msg, err = pluscontextbot.PublishTweet(article, api)
+		msg, err = pluscontextbot.PublishTweet(article, tweet.IdStr, api)
 		if err != nil {
 			log.Print("unable to publish tweet: ", err)
 			continue

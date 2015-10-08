@@ -10,6 +10,14 @@ func TestTwitterize(t *testing.T) {
 		want  string
 	}{
 		{
+			"HTML escaped chars",
+			Article{
+				Headline: "Review: &#8216;A Delicate Ship&#8217; Plumbs the What-ifs of Love and Heartbreak",
+				URL:      "http://www.nytimes.com/man-bites-dog",
+			},
+			`@NYTMinusContext Review: ‘A Delicate Ship’ Plumbs the What-ifs of Love and Heartbreak http://www.nytimes.com/man-bites-dog`,
+		},
+		{
 			"No Truncate",
 			Article{
 				Headline: "Man Bites Dog",
@@ -21,6 +29,14 @@ func TestTwitterize(t *testing.T) {
 			"URL in Headline",
 			Article{
 				Headline: "Man Bites Dog.com",
+				URL:      "http://www.nytimes.com/man-bites-dog",
+			},
+			"@NYTMinusContext Man Bites Dog http://www.nytimes.com/man-bites-dog",
+		},
+		{
+			"URL in Headline v2",
+			Article{
+				Headline: "Man Bites Dog.net",
 				URL:      "http://www.nytimes.com/man-bites-dog",
 			},
 			"@NYTMinusContext Man Bites Dog http://www.nytimes.com/man-bites-dog",
