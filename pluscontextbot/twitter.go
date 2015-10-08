@@ -19,7 +19,7 @@ func PublishTweet(article *Article, replyToId string, api *anaconda.TwitterApi) 
 	return msg, err
 }
 
-var cleanRegex = regexp.MustCompile(".(com|org|net|io)")
+var cleanRegex = regexp.MustCompile(`\.(com|org|net|io)`)
 
 func twitterize(article *Article) string {
 	msg := "@NYTMinusContext " + html.UnescapeString(article.Headline)

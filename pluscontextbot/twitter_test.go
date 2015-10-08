@@ -20,10 +20,10 @@ func TestTwitterize(t *testing.T) {
 		{
 			"No Truncate",
 			Article{
-				Headline: "Man Bites Dog",
+				Headline: "Opinion | Man Bites Dog",
 				URL:      "http://www.nytimes.com/man-bites-dog",
 			},
-			"@NYTMinusContext Man Bites Dog http://www.nytimes.com/man-bites-dog",
+			"@NYTMinusContext Opinion | Man Bites Dog http://www.nytimes.com/man-bites-dog",
 		},
 		{
 			"URL in Headline",
