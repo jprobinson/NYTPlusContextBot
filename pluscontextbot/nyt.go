@@ -57,61 +57,12 @@ type Article struct {
 
 type SearchResponse struct {
 	Response struct {
-		Meta struct {
-			Hits   int `json:"hits"`
-			Time   int `json:"time"`
-			Offset int `json:"offset"`
-		} `json:"meta"`
 		Docs []struct {
-			WebURL        string        `json:"web_url"`
-			Snippet       string        `json:"snippet"`
-			LeadParagraph interface{}   `json:"lead_paragraph"`
-			Abstract      string        `json:"abstract"`
-			PrintPage     interface{}   `json:"print_page"`
-			Blog          []interface{} `json:"blog"`
-			Source        string        `json:"source"`
-			Multimedia    []struct {
-				Width   int    `json:"width"`
-				URL     string `json:"url"`
-				Height  int    `json:"height"`
-				Subtype string `json:"subtype"`
-				Legacy  struct {
-					Wide       string `json:"wide"`
-					Wideheight string `json:"wideheight"`
-					Widewidth  string `json:"widewidth"`
-				} `json:"legacy"`
-				Type string `json:"type"`
-			} `json:"multimedia"`
+			WebURL   string `json:"web_url"`
 			Headline struct {
 				Main   string `json:"main"`
 				Kicker string `json:"kicker"`
 			} `json:"headline"`
-			Keywords []struct {
-				Rank  string `json:"rank"`
-				Name  string `json:"name"`
-				Value string `json:"value"`
-			} `json:"keywords"`
-			PubDate        time.Time `json:"pub_date"`
-			DocumentType   string    `json:"document_type"`
-			NewsDesk       string    `json:"news_desk"`
-			SectionName    string    `json:"section_name"`
-			SubsectionName string    `json:"subsection_name"`
-			Byline         struct {
-				Person []struct {
-					Organization string `json:"organization"`
-					Role         string `json:"role"`
-					Firstname    string `json:"firstname"`
-					Rank         int    `json:"rank"`
-					Lastname     string `json:"lastname"`
-				} `json:"person"`
-				Original string `json:"original"`
-			} `json:"byline"`
-			TypeOfMaterial   string      `json:"type_of_material"`
-			ID               string      `json:"_id"`
-			WordCount        string      `json:"word_count"`
-			SlideshowCredits interface{} `json:"slideshow_credits"`
 		} `json:"docs"`
 	} `json:"response"`
-	Status    string `json:"status"`
-	Copyright string `json:"copyright"`
 }
