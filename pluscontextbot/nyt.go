@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -29,14 +31,21 @@ func SearchNYT(text string, APIToken string) (*Article, error) {
 	}
 	defer resp.Body.Close()
 
-	// get the datas
-	var nytResp SearchResponse
-	err = json.NewDecoder(resp.Body).Decode(&nytResp)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
+	// get the datas
+	var nytResp SearchResponse
+	err = json.Unmarshal(body, &nytResp)
+	if err != nil {
+		log.Printf("unable to unmarshal JSON (err: %s)\n Response:\n %s", err, string(body))
+		return nil, err
+	}
+
 	if len(nytResp.Response.Docs) == 0 {
+		log.Printf("unable to find results?\n Response:\n %s", string(body))
 		return nil, errors.New("not found")
 	}
 
