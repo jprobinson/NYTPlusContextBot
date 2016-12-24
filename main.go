@@ -18,12 +18,12 @@ func main() {
 	// pull creds out of envirnment
 	var creds Creds
 	config.LoadEnvConfig(&creds)
-	log.Printf("creds? %#v", creds)
 
 	// setup the Twitter client
 	anaconda.SetConsumerKey(creds.TwtConsumer)
 	anaconda.SetConsumerSecret(creds.TwtConsumerSecret)
 	api := anaconda.NewTwitterApi(creds.TwtAccess, creds.TwtAccessSecret)
+	api.SetLogger(anaconda.BasicLogger)
 	stream := api.PublicStreamFilter(url.Values{
 		// @NYTMinusContext's ID
 		"follow": []string{NYTMinusContextID},
