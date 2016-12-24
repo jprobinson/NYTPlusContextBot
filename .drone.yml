@@ -1,6 +1,8 @@
 build:
   image: golang:1.7
   commands:
+    # copy cert from host
+    - cp /etc/ssl/certs/ca-certificates.crt .
     - go get ./...
     - go test -v -cover
     - CGO_ENABLED=0 go build -o bot .

@@ -23,7 +23,6 @@ func main() {
 	anaconda.SetConsumerKey(creds.TwtConsumer)
 	anaconda.SetConsumerSecret(creds.TwtConsumerSecret)
 	api := anaconda.NewTwitterApi(creds.TwtAccess, creds.TwtAccessSecret)
-	api.SetLogger(anaconda.BasicLogger)
 	stream := api.PublicStreamFilter(url.Values{
 		// @NYTMinusContext's ID
 		"follow": []string{NYTMinusContextID},
