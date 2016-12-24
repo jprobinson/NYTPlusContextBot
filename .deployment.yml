@@ -14,7 +14,7 @@ spec:
         run: pluscontextbot
     spec:
       containers:
-        - name: web
+        - name: pluscontextbot
           image: gcr.io/nyt-games-dev/nyt-plus-context-bot:{{ .COMMIT }}
           env:
           - name: NYT_TOKEN
