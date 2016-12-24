@@ -35,5 +35,5 @@ deploy:
 notify:
   slack:
     webhook_url: $$SLACK_WEBHOOK_URL
-    channel: adammck-private
+    channel: games-releases
     username: drone
