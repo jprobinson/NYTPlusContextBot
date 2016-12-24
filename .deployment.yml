@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+
+metadata:
+  name: pluscontextbot
+
+spec:
+  replicas: 1
+
+  # Pod specification
+  template:
+    metadata:
+      labels:
+        run: pluscontextbot
+    spec:
+      containers:
+        - name: web
+          image: gcr.io/nyt-games-dev/nyt-plus-context-bot:{{ .COMMIT }}

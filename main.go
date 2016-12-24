@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"flag"
 	"log"
 	"net/url"
 	"os"
@@ -10,28 +8,16 @@ import (
 	"syscall"
 
 	"github.com/ChimeraCoder/anaconda"
+	"github.com/NYTimes/gizmo/config"
 	"github.com/jprobinson/NYTPlusContextBot/pluscontextbot"
 )
-
-var credsFile = flag.String("creds", "/opt/nyt/etc/creds.json", "path to creds.json file")
 
 const NYTMinusContextID = "2189503302"
 
 func main() {
-	flag.Parse()
-
-	// get credentials from file
-	f, err := os.Open(*credsFile)
-	if err != nil {
-		log.Fatal("unable to open creds file ("+*credsFile+"): ", err)
-	}
-	defer f.Close()
-
+	// pull creds out of envirnment
 	var creds Creds
-	err = json.NewDecoder(f).Decode(&creds)
-	if err != nil {
-		log.Fatal("unable to parse creds file ("+*credsFile+"): ", err)
-	}
+	config.LoadEnvConfig(&creds)
 
 	// setup the Twitter client
 	anaconda.SetConsumerKey(creds.TwtConsumer)
@@ -87,8 +73,10 @@ func main() {
 }
 
 type Creds struct {
-	TwtAccess, TwtAccessSecret     string
-	TwtConsumer, TwtConsumerSecret string
+	TwtAccess         string `envconfig:"TWT_ACCESS"`
+	TwtAccessSecret   string `envconfig:"TWT_ACCESS_SECRET"`
+	TwtConsumer       string `envconfig:"TWT_CONSUMER"`
+	TwtConsumerSecret string `envconfig:"TWT_CONSUMER_SECRET"`
 
-	NYTToken string
+	NYTToken string `envconfig:"NYT_TOKEN"`
 }
