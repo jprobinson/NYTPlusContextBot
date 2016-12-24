@@ -1,0 +1,45 @@
+build:
+  image: golang:1.7
+  commands:
+    - go get ./...
+    - go test -v -cover
+    - CGO_ENABLED=0 go build -o bot .
+  when:
+    event:
+      - push
+      - pull_request
+
+publish:
+  gcr:
+    repo: nyt-games-dev/nyt-plus-context-bot
+    tag: "$$COMMIT"
+    token: >
+      $$GOOGLE_CREDENTIALS_DEV
+    storage_driver: overlay
+    when:
+      event: push
+      branch: master
+
+deploy:
+  gke:
+    image: nytimes/drone-gke
+    template: .deployment.yml
+    zone: us-central1-a
+    cluster: games
+    token: >
+      $$GOOGLE_CREDENTIALS_DEV
+
+    # These are available in the template.
+    vars:
+      image: gcr.io/nyt-games-dev/nyt-plus-context-bot:$$COMMIT
+      NAME: Development
+
+    when:
+      event: push
+      branch: master
+
+notify:
+  slack:
+    webhook_url: $$SLACK_WEBHOOK_URL
+    channel: adammck-private
+    username: drone
