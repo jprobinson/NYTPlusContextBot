@@ -16,3 +16,14 @@ spec:
       containers:
         - name: web
           image: gcr.io/nyt-games-dev/nyt-plus-context-bot:{{ .COMMIT }}
+          env:
+          - name: NYT_TOKEN
+            value: {{ .NYT_TOKEN }}
+          - name: TWT_ACCESS
+            value: {{ .TWT_ACCESS }}
+          - name: TWT_ACCESS_SECRET
+            value: {{ .TWT_ACCESS_SECRET }}
+          - name: TWT_CONSUMER
+            value: {{ .TWT_CONSUMER }}
+          - name: TWT_CONSUMER_SECRET
+            value: {{ .TWT_CONSUMER_SECRET }}

@@ -28,6 +28,12 @@ deploy:
     cluster: games
     token: >
       $$GOOGLE_CREDENTIALS_DEV
+    vars:
+      NYT_TOKEN: $$NYT_TOKEN
+      TWT_ACCESS: $$TWT_ACCESS
+      TWT_ACCESS_SECRET: $$TWT_ACCESS_SECRET
+      TWT_CONSUMER: $$TWT_CONSUMER
+      TWT_CONSUMER_SECRET: $$TWT_CONSUMER_SECRET
     when:
       event: push
       branch: master
