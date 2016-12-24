@@ -28,12 +28,6 @@ deploy:
     cluster: games
     token: >
       $$GOOGLE_CREDENTIALS_DEV
-
-    # These are available in the template.
-    vars:
-      image: gcr.io/nyt-games-dev/nyt-plus-context-bot:$$COMMIT
-      NAME: Development
-
     when:
       event: push
       branch: master
