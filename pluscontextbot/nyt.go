@@ -12,22 +12,29 @@ import (
 	"time"
 )
 
+const maxAttempts = 3
+
 func SearchNYT(text string, APIToken string) (*Article, error) {
 	query := url.QueryEscape(fmt.Sprintf(`body:%s`, strconv.Quote(text)))
 	urlStr := `http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=%s&api-key=%s`
 	urlStr = fmt.Sprintf(urlStr, query, APIToken)
 
 	// create request with timeout
-	client := &http.Client{Timeout: 5 * time.Second}
+	client := &http.Client{Timeout: 1 * time.Second}
 	req, err := http.NewRequest("GET", urlStr, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Close = true
-	// make request
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
+	// make request with retries!
+	var resp *http.Response
+	for attempts := 1; attempts <= maxAttempts; attempts++ {
+		resp, err = client.Do(req)
+		if err != nil {
+			log.Printf("unable to make request on attempt %d: %s", attempts, err)
+			continue
+		}
+		break
 	}
 	defer resp.Body.Close()
 
