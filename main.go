@@ -18,6 +18,7 @@ func main() {
 	// pull creds out of envirnment
 	var creds Creds
 	config.LoadEnvConfig(&creds)
+	log.Printf("creds? %#v", creds)
 
 	// setup the Twitter client
 	anaconda.SetConsumerKey(creds.TwtConsumer)
