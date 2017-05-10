@@ -26,7 +26,7 @@ deploy:
   gke:
     image: nytimes/drone-gke
     template: .deployment.yml
-    zone: us-central1-a
+    zone: us-central1-b
     cluster: games
     token: >
       $$GOOGLE_CREDENTIALS_DEV
