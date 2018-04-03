@@ -24,7 +24,7 @@ publish:
 
 deploy:
   gke:
-    image: nytimes/drone-gke
+    image: nytimes/drone-gke:0.4
     template: .deployment.yml
     zone: us-central1-b
     cluster: games
