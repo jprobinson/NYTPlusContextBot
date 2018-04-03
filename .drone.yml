@@ -1,5 +1,5 @@
 build:
-  image: golang:1.7
+  image: golang:1.10
   commands:
     # copy cert from host
     - cp /etc/ssl/certs/ca-certificates.crt .
